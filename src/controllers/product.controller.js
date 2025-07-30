@@ -11,13 +11,14 @@ export const getProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, priority } = req.body;
+    const { name, description, price, priority, img } = req.body;
 
     const newProyect = await Product.create({
       name,
       description,
       price,
       priority,
+      img,
     });
     res.send(newProyect);
   } catch (error) {
@@ -39,12 +40,15 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    await Product.destroy({
-      where: {
-        id,
-      },
-    });
-    res.send("El producto con el id: " + id + " fue eliminado exitosamente!");
+    const producto = await Product.findByPk(id);
+    if (!producto) {
+      return res.status(404).send(`El producto con id ${id} no existe`);
+    }
+
+    await Product.destroy({ where: { id } });
+    res.send(
+      `El producto "${producto.name}" con id ${id} fue eliminado exitosamente!`
+    );
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

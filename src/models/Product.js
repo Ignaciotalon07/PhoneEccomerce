@@ -19,4 +19,11 @@ export const Product = sequelize.define("products", {
   price: {
     type: DataTypes.DECIMAL,
   },
+  img: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    validate: {
+      isUrl: true, // valida que sea una URL
+    },
+  },
 });

@@ -41,5 +41,3 @@ export const User = sequelize.define("users", {
     defaultValue: true,
   },
 });
-
-User.hasMany(Product);

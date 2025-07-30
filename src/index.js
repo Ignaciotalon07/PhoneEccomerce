@@ -5,7 +5,7 @@ import { sequelize } from "./database/database.js";
 // import "./models/User.js";
 // import "./models/Product.js";
 // import "./models/Cart.js";
-// import "./models/index.js";
+import "./models/index.js";
 
 //FUNCION QUE CONECTA A LA BD
 async function main() {
@@ -13,7 +13,7 @@ async function main() {
     await sequelize.authenticate();
     console.log("Conexión establecida con la base de datos");
 
-    await sequelize.sync({ force: false });
+    // await sequelize.sync({ force: false });
     console.log("Tablas sincronizadas");
 
     app.listen(3000);
